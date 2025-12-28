@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculateur de repas</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+        background-color: #E9ECF2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .app {
+        background-color: #E9ECF2;
+        width: 100%;
+        max-width: 390px;
+        padding: 25px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        color: #444;
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        color: #555;
+        font-size: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        margin-top: 5px;
+        border-radius: 14px;
+        border: none;
+        font-size: 18px;
+        box-sizing: border-box;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    button {
+        flex: 1;
+        padding: 14px;
+        border-radius: 18px;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .calcul {
+        background-color: #A8D5BA;
+        color: #333;
+    }
+
+    .reset {
+        background-color: #F4B6C2;
+        color: #333;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+    <h1>Calculateur de repas</h1>
+
+    <label>Poids des légumes (g)</label>
+    <input id="legumes" type="number" inputmode="decimal">
+
+    <label>Poids des féculents (g)</label>
+    <input id="feculents" type="number" inputmode="decimal">
+
+    <label>Poids total (g)</label>
+    <input id="total" type="number" inputmode="decimal">
+
+    <div class="buttons">
+        <button class="calcul" onclick="calculer()">Calcul</button>
+        <button class="reset" onclick="resetChamps()">Reset</button>
+    </div>
+</div>
+
+<script>
+function calculer() {
+    let legumes = document.getElementById("legumes").value;
+    let feculents = document.getElementById("feculents").value;
+    let total = document.getElementById("total").value;
+
+    if (legumes) {
+        legumes = parseFloat(legumes);
+        total = legumes / 0.75;
+        feculents = total * 0.25;
+    } else if (feculents) {
+        feculents = parseFloat(feculents);
+        total = feculents / 0.25;
+        legumes = total * 0.75;
+    } else if (total) {
+        total = parseFloat(total);
+        legumes = total * 0.75;
+        feculents = total * 0.25;
+    } else {
+        return;
+    }
+
+    document.getElementById("legumes").value = Math.round(legumes);
+    document.getElementById("feculents").value = Math.round(feculents);
+    document.getElementById("total").value = Math.round(total);
+}
+
+function resetChamps() {
+    document.getElementById("legumes").value = "";
+    document.getElementById("feculents").value = "";
+    document.getElementById("total").value = "";
+}
+</script>
+
+</body>
+</html>
